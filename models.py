@@ -1,45 +1,23 @@
 from django.db import models
-#from productapp import models
-
-
-class Signup(models.Model):
-    firstname=models.CharField(max_length=10)
-    lastname=models.CharField(max_length=10)
-    username=models.CharField(primary_key=True,max_length=10)
-    phone_no=models.IntegerField()
-    email= models.EmailField(max_length=50)
-    password= models.CharField(max_length=20)
-    rpsw= models.CharField(max_length=20)
-    def get_fname(self):
-        return self.firstname
-    #def get_lastname(self):
-       # return self.lastname
-    #def get_username(self):
-        #return self.username
-    #def get_phone_no(self):
-        #return self.phone_no
-    #def get_email(self):
-        #return self.email
-   # def get_password(self):
-        #return self.password
-    #def get_rpsw(self):
-        #return self.rpsw
-
-
-class Signin(models.Model):
-    username = models.CharField(primary_key=True,max_length=10)
-    password= models.CharField(max_length=20)
-    def get_user(self):
-        return self.username
-    def get_pswd(self):
-        return self.password
-
-
-
-
-
-
-
-
+from django.utils import timezone
+class Product(models.Model):
+    pid=models.IntegerField(primary_key=True)
+    pcat=models.CharField(max_length=20)
+    pname=models.CharField(max_length=20)
+    pcost=models.DecimalField(max_digits=10,decimal_places=4)
+    pdisc=models.DecimalField(max_digits=10,decimal_places=4)
+    pmfdt=models.DateField()
+    pexpdt=models.DateField()
+    def __str__(self):
+        return str(self.pid)
+class Stock(models.Model):
+    prodid=models.OneToOneField(
+        Product,
+        on_delete=models.CASCADE,
+        primary_key=True,
+    )
+    tot_qty=models.IntegerField()
+    last_update=models.DateField()
+    next_update=models.DateField()
 
 

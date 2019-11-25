@@ -1,12 +1,15 @@
 from django.contrib import admin
-from .models import Signup
-
-# Register your models here.
-class SignupAdmin(admin.ModelAdmin):
-    list_display = ['firstname', 'lastname','username','phone_no', 'email', 'password', 'rpsw']
-
+from .models import Product,Stock
+class Productadmin(admin.ModelAdmin):
+    list_display = ['pid','pname','pcat','pcost','pdisc','pmfdt','pexpdt']
+    list_filter = ['pcat','pmfdt','pexpdt']
     class Meta:
-        model = Signup
+        model=Product
+admin.site.register(Product,Productadmin)
+class Stockadmin(admin.ModelAdmin):
+    list_display = ['prodid','tot_qty','last_update','next_update']
+    list_filter = ['prodid']
+    class Meta:
+        model=Stock
+admin.site.register(Stock,Stockadmin)
 
-
-admin.site.register(Signup,SignupAdmin)
